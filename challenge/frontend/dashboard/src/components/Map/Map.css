@@ -1,0 +1,61 @@
+/* CustomMap.css */
+
+.map-container {
+  margin: 20px;
+  padding: 20px;
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+label {
+  display: block;
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+select {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  background-color: #fff;
+  font-size: 16px;
+}
+
+/* Style the map container */
+.leaflet-container {
+  height: 400px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+}
+
+/* Style map popups */
+.leaflet-popup-content-wrapper {
+  padding: 8px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.leaflet-popup-content {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+/* Style map markers */
+.leaflet-marker-icon {
+  background-color: red;
+  /* border: 2px solid #0056b3; */
+  border-radius: 100%;
+  width: 2px;
+  height: 2px;
+}
