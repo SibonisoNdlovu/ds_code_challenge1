@@ -1,5 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { VictoryPie } from 'victory';
+import { VictoryPie, VictoryTooltip } from 'victory';
+
+// Legend component
+function PieLegend({ data, colorScale }) {
+  return (
+    <div className="legend-container">
+      <h3>Legend</h3>
+      <ul>
+        {data.map((datum, index) => (
+          <li key={index}>
+            <span className="legend-color" style={{ backgroundColor: colorScale[index] }}></span>
+            {datum.x} - {datum.y} ({datum.percent.toFixed(2)}%)
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
 
 function PieChartComponent({ data }) {
   const [selectedLocation, setSelectedLocation] = useState('');
@@ -32,19 +49,28 @@ function PieChartComponent({ data }) {
   }));
 
   // Calculate the total count of complaints
-  const totalCount = pieData.reduce((total, entry) => total + entry.y, 0);
+  const totalCount = filteredData.length;
 
-  // Generate a unique color for each area dynamically
-  const generateColors = (numColors) => {
-    const colors = [];
-    for (let i = 0; i < numColors; i++) {
-      const hue = (360 / numColors) * i;
-      colors.push(`hsl(${hue}, 70%, 50%)`);
-    }
-    return colors;
-  };
+    // Generate colors for the pie chart, setting red for the most complaints and green for the least
+    const generateColors = (numColors) => {
+      const colors = [];
+      for (let i = 0; i < numColors; i++) {
+        const hue = (360 / numColors) * i;
+        colors.push(`hsl(${hue}, 70%, 50%)`);
+      }
+      return colors;
+    };
 
-  const areaColors = generateColors(pieData.length);
+  // Check if the data is empty before generating colors
+  const areaColors = pieData.length > 0 ? generateColors(pieData.length) : [];
+
+  // Calculate percentages for each data point
+  pieData.forEach(datum => {
+    datum.percent = (datum.y / totalCount) * 100;
+  });
+
+  // Sort the pieData array by percentage in descending order
+  pieData.sort((a, b) => b.percent - a.percent);
 
   return (
     <div className="chart-container">
@@ -57,39 +83,23 @@ function PieChartComponent({ data }) {
           </option>
         ))}
       </select>
-      <VictoryPie
-        data={pieData}
-        colorScale={areaColors}
-        labels={({ datum }) => `${datum.x}: ${datum.y}`}
-        style={{ labels: { fontSize: 6, fill: 'black' } }}
-        width={400}
-        height={300}
-        events={[
-          {
-            target: 'data',
-            eventHandlers: {
-              onMouseOver: () => {
-                return [
-                  {
-                    target: 'data',
-                    mutation: (props) => {
-                      return { style: { fill: 'lightgray' } };
-                    },
-                  },
-                ];
-              },
-              onMouseOut: () => {
-                return [
-                  {
-                    target: 'data',
-                    mutation: () => {},
-                  },
-                ];
-              },
-            },
-          },
-        ]}
-      />
+      <div className="pie-chart-container">
+        <VictoryPie
+          data={pieData}
+          colorScale={areaColors}
+          labels={({ datum }) => `${datum.x}: ${datum.y} (${datum.percent.toFixed(2)}%)`}
+          labelComponent={
+            <VictoryTooltip
+              style={{ fontSize: 10 }}
+              cornerRadius={5}
+              flyoutStyle={{ fill: 'white', stroke: 'gray', strokeWidth: 0.5 }}
+            />
+          }
+          width={400}
+          height={300}
+        />
+        <PieLegend data={pieData} colorScale={areaColors} />
+      </div>
     </div>
   );
 }
