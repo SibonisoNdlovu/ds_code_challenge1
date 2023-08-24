@@ -2,7 +2,6 @@ import React, { useState, useEffect, useMemo } from 'react';
 import BarChart from './components/BarChart/BarChart';
 import Map from './components/Map/Map';
 import './App.css';
-import LineChart from './components/LineChart/LineChart';
 import PieChartComponent from './components/PieChart/PieChart';
 
 function App() {
@@ -1506,7 +1505,7 @@ function App() {
  const memoizedData = useMemo(() => {
   let filtered = [...data];
 
-  // Apply filtering based on filterKeyword (customize this logic as needed)
+  // Apply filtering based on filterKeyword
   if (filterKeyword) {
     filtered = filtered.filter(item => {
       return (
@@ -1516,7 +1515,7 @@ function App() {
     });
   }
 
-  // Apply sorting logic (customize this logic as needed)
+  // Apply sorting logic
   if (sortField) {
     filtered.sort((a, b) => {
       if (a[sortField] < b[sortField]) return -1;
@@ -1548,21 +1547,18 @@ return (
         <option value="">Sort by...</option>
         <option value="Location">Location</option>
         <option value="ProblemDescription">Problem Description</option>
-        {/* Add more sorting options if needed */}
       </select>
     </div>
     <div className="dashboard-grid">
       <div className="chart-block">
-        <BarChart data={memoizedData} style={{ width: '50%', height: '50%' }}/>
+        <BarChart data={memoizedData} style={{ width: '50%', height: '100%' }}/>
       </div>
-      <div className="chart-block">
-        <LineChart data={memoizedData} style={{ width: '100%', height: '100%' }}/>
-      </div>
-      <div className="chart-block">
-        <Map data={memoizedData} style={{ width: '100%', height: '100%' }}/>
-      </div>
+
       <div className="chart-block">
         <PieChartComponent data={memoizedData}/>
+      </div>
+      <div>
+        <Map data={memoizedData} style={{ width: '100%', height: '100%' }}/>
       </div>
     </div>
   </main>

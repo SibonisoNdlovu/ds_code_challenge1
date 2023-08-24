@@ -1,4 +1,3 @@
-import { wrap } from 'lodash';
 import React, { useState, useEffect } from 'react';
 import { VictoryPie } from 'victory';
 
@@ -46,12 +45,6 @@ function PieChartComponent({ data }) {
   };
 
   const areaColors = generateColors(pieData.length);
-
-  // Function to filter labels based on slice percentage
-  const filterLabels = (datum) => {
-    const percentage = (datum.y / totalCount) * 100;
-    return percentage >= 1; // Show labels for slices with at least 1% percentage
-  };
 
   return (
     <div className="chart-container">
