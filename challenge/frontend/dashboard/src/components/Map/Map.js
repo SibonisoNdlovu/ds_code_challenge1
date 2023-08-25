@@ -108,8 +108,8 @@ function CustomMap({ data }) {
             <Popup>
               <strong>{item.Location}</strong><br />
               Complaint Type: {item.ComplaintType}<br />
-              District: {item.District}<br />
-              Service Area: {item.ServiceArea}
+              {item.District}<br />
+              Service Area: {item.ServiceArea}<br />
               Opening Date: {item.OpeningDate}
             </Popup>
           </Marker>
