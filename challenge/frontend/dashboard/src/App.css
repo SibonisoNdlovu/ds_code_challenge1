@@ -33,9 +33,6 @@
   }
 }
 
-/* App.css */
-/* ... Your existing styles ... */
-
 header {
   background-color: #007BFF;
   color: #fff;
@@ -76,99 +73,27 @@ footer {
   padding: 10px 0;
 }
 
-
-
-
-/* Header style */
 h1 {
   color: #333;
 }
 
-/* Chart container */
-.line-chart-container {
-  width: 100%;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
-}
-
-/* Map container */
-.map-container {
-  margin-top: 100px;
-  height: 90%;
-  border: 1px solid #ddd;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 190%;
-}
-
-/* Popup style in the map */
 .leaflet-popup-content {
   text-align: center;
   font-weight: bold;
 }
 
-/* Marker icon style */
-.leaflet-marker-icon {
-  color: #FF5733; /* Marker color */
-}
-
-/* ... (previous styles) */
-
-/* Pie chart container */
-.PieChart {
-  margin: 20px auto;
-  padding: 20px;
-  border: 1px solid #ddd;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Pie chart title */
-.PieChart h2 {
-  color: #333;
-}
-
-/* Legend for the pie chart */
-.PieChart .legend {
-  list-style: none;
-  padding: 0;
-  margin-top: 10px;
-}
-
-/* Legend items */
-.PieChart .legend li {
-  display: flex;
-  align-items: center;
-  margin-bottom: 5px;
-}
-
-/* Legend color boxes */
-.PieChart .legend li span {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  margin-right: 10px;
-}
-
-/* Legend labels */
-.PieChart .legend li span + span {
-  color: #555;
-  font-size: 14px;
-}
-
 .dashboard-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Two columns */
-  grid-gap: 20px; /* Gap between blocks */
+  grid-template-columns: repeat(2, 1fr); 
+  grid-gap: 20px; 
 }
 
 .chart-block {
   border: 1px solid #ccc;
-  padding: 20px; /* Adjust padding as needed */
-  height: 100%; /* Set a fixed height for each chart block */
-  /* overflow: hidden; Hide overflow content if necessary */
+  height: 100%; 
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); 
+  background-color: #f5f5f5; 
+  padding: 15px; 
 }
 
 .filter-controls {

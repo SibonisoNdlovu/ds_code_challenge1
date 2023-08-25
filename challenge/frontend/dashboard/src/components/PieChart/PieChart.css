@@ -1,0 +1,35 @@
+.PieChart {
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.PieChart h2 {
+  color: #333;
+}
+
+.PieChart .legend {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+}
+
+.PieChart .legend li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.PieChart .legend li span {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.PieChart .legend li span + span {
+  color: #555;
+  font-size: 14px;
+}

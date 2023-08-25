@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { VictoryPie, VictoryTooltip } from 'victory';
+import './PieChart.css';
 
 // Legend component
 function PieLegend({ data, colorScale }) {
