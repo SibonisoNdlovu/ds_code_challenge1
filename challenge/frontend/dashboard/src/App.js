@@ -3014,10 +3014,11 @@ function App() {
       <main>
         <div className="filter-controls">
           <div className="filter-row">
-            <label>Filter by Location or Problem Description:</label>
             <input
+            style={{width:'400px'}}
               type="text"
               value={filterKeyword}
+              placeholder="Filter by Location or Problem Description:"
               onChange={e => setFilterKeyword(e.target.value)}
             />
           </div>

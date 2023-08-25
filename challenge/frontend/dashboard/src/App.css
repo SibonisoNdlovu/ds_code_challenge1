@@ -86,7 +86,6 @@ h1 {
 }
 
 .filter-controls input {
-  width: 60%;
   padding: 10px;
   font-size: 16px;
 }
@@ -95,4 +94,10 @@ h1 {
   width: 30%;
   padding: 10px;
   font-size: 16px;
+}
+
+.filter-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
 }
