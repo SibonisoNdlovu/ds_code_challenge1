@@ -1,60 +1,79 @@
 import React, { useState, useEffect } from 'react';
 import { VictoryChart, VictoryBar, VictoryAxis, VictoryLegend, VictoryTooltip } from 'victory';
 
-function ChartComponent({ data }) {
+function ComplaintsBarChart({ data }) {
+  const [selectedServiceType, setSelectedServiceType] = useState('');
   const [selectedLocation, setSelectedLocation] = useState('');
   const [filteredData, setFilteredData] = useState(data);
 
-  // Update the filtered data when the selected location changes
+  // Update the filtered data when the selected service type or location changes
   useEffect(() => {
-    if (selectedLocation === '') {
-      setFilteredData(data);
-    } else {
-      const filtered = data.filter(entry => entry.Location === selectedLocation);
-      setFilteredData(filtered);
-    }
-  }, [selectedLocation, data]);
+    let filtered = data;
 
-  // Group the filtered data by location and count complaints
-  const locationCounts = filteredData.reduce((counts, entry) => {
-    const location = entry.Location;
-    if (!counts[location]) {
-      counts[location] = 0;
+    if (selectedServiceType !== '') {
+      filtered = filtered.filter(entry => entry.ServiceType === selectedServiceType);
     }
-    counts[location]++;
+
+    if (selectedLocation !== '') {
+      filtered = filtered.filter(entry => entry.Location === selectedLocation);
+    }
+
+    setFilteredData(filtered);
+  }, [selectedServiceType, selectedLocation, data]);
+
+  // Group the filtered data by service type and count complaints
+  const serviceTypeCounts = filteredData.reduce((counts, entry) => {
+    const serviceType = entry.ServiceType;
+    if (!counts[serviceType]) {
+      counts[serviceType] = 0;
+    }
+    counts[serviceType]++;
     return counts;
   }, {});
 
   // Prepare data for the bar chart
-  const chartData = Object.keys(locationCounts).map(location => ({
-    location,
-    count: locationCounts[location],
-  }));
-
-  // Trim long location names for labels
-  const maxLabelLength = 15;
-  const trimmedChartData = chartData.map(item => ({
-    location: item.location.length > maxLabelLength
-      ? `${item.location.substring(0, maxLabelLength)}...`
-      : item.location,
-    count: item.count,
+  const chartData = Object.keys(serviceTypeCounts).map(serviceType => ({
+    serviceType,
+    count: serviceTypeCounts[serviceType],
   }));
 
   return (
     <div className="chart-container">
-      <h2>Complaints by Location (Bar Chart)</h2>
-      <select onChange={(e) => setSelectedLocation(e.target.value)}>
-        <option value="">All Locations</option>
-        {Array.from(new Set(data.map(entry => entry.Location))).map((location) => (
-          <option key={location} value={location}>
-            {location}
-          </option>
-        ))}
-      </select>
+      <h2>Complaints by Service Type</h2>
+      <div>
+        <label htmlFor="serviceTypeSelect">Select Service Type:</label>
+        <select
+          id="serviceTypeSelect"
+          onChange={(e) => setSelectedServiceType(e.target.value)}
+          value={selectedServiceType}
+        >
+          <option value="">All Service Types</option>
+          {Array.from(new Set(data.map(entry => entry.ServiceType))).map((serviceType) => (
+            <option key={serviceType} value={serviceType}>
+              {serviceType}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div>
+        <label htmlFor="locationSelect">Select Location:</label>
+        <select
+          id="locationSelect"
+          onChange={(e) => setSelectedLocation(e.target.value)}
+          value={selectedLocation}
+        >
+          <option value="">All Locations</option>
+          {Array.from(new Set(data.map(entry => entry.Location))).map((location) => (
+            <option key={location} value={location}>
+              {location}
+            </option>
+          ))}
+        </select>
+      </div>
       <VictoryChart width={800} height={500} domainPadding={20}>
         <VictoryAxis
           tickFormat={(tick) => tick}
-          label="Location"
+          label="Service Type"
           style={{
             axisLabel: { padding: 30 },
             ticks: { padding: 10 },
@@ -69,25 +88,25 @@ function ChartComponent({ data }) {
           }}
         />
         <VictoryBar
-          data={trimmedChartData}
-          x="location"
+          data={chartData}
+          x="serviceType"
           y="count"
-          style={{ data: { fill: 'rgba(75,192,192,0.6)' } }}
-          horizontal
-          labels={({ datum }) => `Count: ${datum.count}`} // Add tooltips
-          // labelComponent={<VictoryTooltip />} // Use VictoryTooltip for labels
+          style={{ data: { fill: 'rgba(7,19,192,0.6)' } }}
+          vertical
+          labels={({ datum }) => `Count: ${datum.count}`} 
+          labelComponent={<VictoryTooltip />} 
         />
         <VictoryLegend
           x={50}
           y={30}
-          title="Locations"
+          title="Service Types"
           centerTitle
-          orientation="vertical"
+          orientation="horizontal"
           gutter={20}
           style={{ title: { fontSize: 16 } }}
-          data={trimmedChartData.map((item) => ({
-            name: item.location,
-            symbol: { fill: 'rgba(75,192,192,0.6)' },
+          data={chartData.map((item) => ({
+            name: item.serviceType,
+            symbol: { fill: 'rgba(7,19,192,0.6)' },
           }))}
         />
       </VictoryChart>
@@ -95,4 +114,4 @@ function ChartComponent({ data }) {
   );
 }
 
-export default ChartComponent;
+export default ComplaintsBarChart;

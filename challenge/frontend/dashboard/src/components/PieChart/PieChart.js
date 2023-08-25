@@ -74,7 +74,7 @@ function PieChartComponent({ data }) {
 
   return (
     <div className="chart-container">
-      <h2>Complaints by Location (Pie Chart)</h2>
+      <h2>Complaints by Location</h2>
       <select onChange={(e) => setSelectedLocation(e.target.value)}>
         <option value="">All Locations</option>
         {Array.from(new Set(data.map(entry => entry.Location))).map((location) => (

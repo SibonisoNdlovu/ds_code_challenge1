@@ -48,7 +48,7 @@ function CustomMap({ data }) {
 
   return (
     <div className="map-container">
-      <h2>Custom Map</h2>
+      <h2>Map</h2>
 
       {/* Location filter */}
       <label htmlFor="location-filter">Filter by Location:</label>
