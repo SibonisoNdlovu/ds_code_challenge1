@@ -69,6 +69,8 @@ function ComplaintsBarChart({ data }) {
             </option>
           ))}
         </select>
+        <br/>
+        <br/>
       </div>
       <BarChart width={800} height={500} data={chartData}>
         <CartesianGrid strokeDasharray="3 3" />
