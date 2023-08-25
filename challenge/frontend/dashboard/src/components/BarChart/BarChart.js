@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { VictoryChart, VictoryBar, VictoryAxis, VictoryLegend, VictoryTooltip } from 'victory';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 
 function ComplaintsBarChart({ data }) {
   const [selectedServiceType, setSelectedServiceType] = useState('');
@@ -70,46 +70,14 @@ function ComplaintsBarChart({ data }) {
           ))}
         </select>
       </div>
-      <VictoryChart width={800} height={500} domainPadding={20}>
-        <VictoryAxis
-          tickFormat={(tick) => tick}
-          label="Service Type"
-          style={{
-            axisLabel: { padding: 30 },
-            ticks: { padding: 10 },
-          }}
-        />
-        <VictoryAxis
-          dependentAxis
-          tickFormat={(tick) => tick}
-          label="Number of Complaints"
-          style={{
-            axisLabel: { padding: 40 },
-          }}
-        />
-        <VictoryBar
-          data={chartData}
-          x="serviceType"
-          y="count"
-          style={{ data: { fill: 'rgba(7,19,192,0.6)' } }}
-          vertical
-          labels={({ datum }) => `Count: ${datum.count}`} 
-          labelComponent={<VictoryTooltip />} 
-        />
-        <VictoryLegend
-          x={50}
-          y={30}
-          title="Service Types"
-          centerTitle
-          orientation="horizontal"
-          gutter={20}
-          style={{ title: { fontSize: 16 } }}
-          data={chartData.map((item) => ({
-            name: item.serviceType,
-            symbol: { fill: 'rgba(7,19,192,0.6)' },
-          }))}
-        />
-      </VictoryChart>
+      <BarChart width={800} height={500} data={chartData}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="serviceType" />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <Bar dataKey="count" fill="red" name="Number of Complaints" />
+      </BarChart>
     </div>
   );
 }

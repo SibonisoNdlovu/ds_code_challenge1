@@ -44,24 +44,6 @@ nav {
   color: #fff;
 }
 
-.tabs {
-  display: flex;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.tabs li {
-  cursor: pointer;
-  padding: 10px 20px;
-  border-bottom: 2px solid transparent;
-  transition: border-color 0.3s;
-}
-
-.tabs li.active {
-  border-color: #007BFF;
-}
-
 main {
   padding: 20px;
 }
