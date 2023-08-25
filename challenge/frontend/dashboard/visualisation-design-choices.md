@@ -1,5 +1,11 @@
 ## Visualization Design Choices 
 
+## Dashboard
+
+I decided to make the header background Blue as this is a Water and Sanitation dashboard. I added filters that will filter all the components in the dashboard instead of adding all of them sperately in Components.
+
+Components do have their own filters.
+
 ## MAP
 
 ## Color Choice
@@ -40,5 +46,20 @@ The interactivity encourages users to explore and gain insights based on their p
 Pop-ups are provided for each map marker, showing detailed information about each complaint when clicked. This interactivity allows users to access specific complaint details.
 
 
+## Bar Chart
 
+## Color Choice 
 
+The Color I chose is red, I initially wanted to configure it so that red is for the bar that has the most numbers and green for the least, but instead decided to use red as a sign of urgency and attention.
+
+## Filters
+
+I added 2 filters, Location and Service Type so that a user can filter using those 2. For example if a user wants to see number of issues for specific location or if a user wants to see the Service Type that is most required throughout the city.
+
+## Pie Chart
+
+I added the pie chart so I can see which area needs the most attention.
+
+The idea of the color scheme was to have the area with the most issues be red and the least be green and then code it to autogenerate the colors based on data provided.
+
+I also added percentage to the pie chart so that a user can see the percentage of issues in each area.
