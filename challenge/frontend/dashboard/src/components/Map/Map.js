@@ -100,19 +100,22 @@ function CustomMap({ data }) {
 
         {/* Data Representation (Markers) */}
         {filteredData.map((item, index) => (
-          <Marker
-            key={index}
-            position={[item.Latitude, item.Longitude]}
-            icon={markerIcon} 
-          >
-            <Popup>
-              <strong>{item.Location}</strong><br />
-              Complaint Type: {item.ComplaintType}<br />
-              {item.District}<br />
-              Service Area: {item.ServiceArea}<br />
-              Opening Date: {item.OpeningDate}
-            </Popup>
-          </Marker>
+          // Check if latitude and longitude are not null or undefined before creating the marker
+          (item.Latitude !== null && item.Longitude !== null && item.Latitude !== undefined && item.Longitude !== undefined) && (
+            <Marker
+              key={index}
+              position={[item.Latitude, item.Longitude]}
+              icon={markerIcon} 
+            >
+              <Popup>
+                <strong>{item.Location}</strong><br />
+                Complaint Type: {item.ComplaintType}<br />
+                {item.District}<br />
+                Service Area: {item.ServiceArea}<br />
+                Opening Date: {item.OpeningDate}
+              </Popup>
+            </Marker>
+          )
         ))}
       </MapContainer>
     </div>
