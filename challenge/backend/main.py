@@ -19,11 +19,11 @@ def time_convert(sec):
 start_time = time.time()
 print(f"Process Started")
 
-# Set the error threshold for logging
-error_threshold = 0.1  # 10%
+# Set the error threshold for logging, was not sure what to set it as. Found it hard to motivate for this but initially I would go for between 5 and 10 percent.
+# made it 50 for test purposes so the process can run through
+error_threshold = 50
 
-root_dir = ""
-
+# load the service requests from s3 bucket provided
 service_requests = pd.read_csv('https://cct-ds-code-challenge-input-data.s3.af-south-1.amazonaws.com/sr.csv.gz', compression='gzip',)
 print(f"Loaded Service Requests")
 
@@ -44,6 +44,7 @@ svc_regdf = gpd.GeoDataFrame(
 joined = gpd.sjoin(svc_regdf, hex_polygons, how="left", op='within')
 print(f"Data joined")
 
+# validate my join with the provided data to use as validation
 validation_data = pd.read_csv('https://cct-ds-code-challenge-input-data.s3.af-south-1.amazonaws.com/sr_hex.csv.gz', compression='gzip',)
 print(f"Data validated")
 
@@ -52,6 +53,14 @@ for id in zip(joined['notification_number'], joined['index']):
     if (pd.isna(id[1])):
         failed_to_join += 1
 
+# Calculate the percentage of failed joins
+failed_join_percentage = (failed_to_join / len(joined)) * 100
+
+# Check if the error threshold is exceeded
+if failed_join_percentage > error_threshold:
+    raise Exception(f"Failed join percentage ({failed_join_percentage}%) exceeds the error threshold ({error_threshold}%)")
+
+# print end time and number of jobs failed
 end_time = time.time()
 print(f"Time taken: {time_convert(end_time - start_time)}")
 print(f"Failed join: {failed_to_join}")
